@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ritual</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="theme-dark">
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand" aria-label="Ritual home">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7.2 12.3l2.7 2.9 6.8-8.3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+              <rect x="4" y="4" width="16" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="1.6" />
+            </svg>
+          </div>
+          <div class="brand-copy">
+            <h1>Ritual</h1>
+            <span>Simple habit tracker</span>
+          </div>
+        </div>
+
+        <div class="nav-controls">
+          <div class="tab-group" role="tablist" aria-label="Views">
+            <button class="tab-button active" type="button" data-view="today" aria-selected="true">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7.3 12.3l2.2 2.2 6.6-6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <rect x="4" y="4" width="16" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="1.8" />
+              </svg>
+              Today
+            </button>
+            <button class="tab-button" type="button" data-view="challenge" aria-selected="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 5.5h9.8A1.7 1.7 0 0 1 18.5 7.2v10.6A2 2 0 0 1 16.5 19H7.5A1.5 1.5 0 0 1 6 17.5V7A1.5 1.5 0 0 1 7.5 5.5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" />
+                <path d="M9.4 8.5h5.2M9.4 12h5.2M9.4 15.5h3.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+              </svg>
+              Challenge
+            </button>
+          </div>
+
+          <button class="theme-toggle" type="button" aria-label="Toggle theme">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M12 2.5v2.2m0 16.6v2.2M4.9 4.9l1.6 1.6m11 11l1.6 1.6M2.5 12h2.2m16.6 0h2.2M4.9 19.1l1.6-1.6m11-11l1.6-1.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <section class="view today-view active" aria-label="Today habits view">
+          <div class="hero-copy">
+            <p class="eyebrow">Friday, October 2</p>
+            <h2>Good afternoon</h2>
+            <p class="lead">Add your first habit to start building a routine.</p>
+          </div>
+
+          <div class="progress-panel">
+            <div class="progress-head">
+              <div>
+                <h3>Today's progress</h3>
+                <p id="progress-summary">0 of 0 habits complete</p>
+              </div>
+              <div id="progress-percent" class="percent">0%</div>
+            </div>
+            <div class="progress-bar">
+              <span id="progress-fill"></span>
+            </div>
+          </div>
+
+          <div class="habits-panel">
+            <div class="panel-head">
+              <h3>Today's habits</h3>
+              <button class="primary-btn add-habit-btn" type="button" data-action="add-habit">+ Add habit</button>
+            </div>
+            <div class="empty-state" id="empty-state">
+              <div class="empty-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 17.5h10.2a3.8 3.8 0 0 0 0-7.6 5 5 0 0 0-9.5-2.3A3.8 3.8 0 0 0 7 17.5Zm-1.3 2.5v.2m5.3 0v.2m5.8-1.8v.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <h4>No habits yet</h4>
+              <p>Start small — one habit is enough. You can always add more later.</p>
+              <button class="primary-btn add-first-btn" type="button" data-action="add-habit">+ Add your first habit</button>
+            </div>
+            <div class="habit-list" id="habit-list" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <section class="view challenge-setup-view" aria-label="Challenge setup view">
+          <div class="challenge-setup-wrap">
+            <div class="challenge-setup-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 5.2h8.7A1.6 1.6 0 0 1 17.3 6.8v10.6a2 2 0 0 1-2 2H7.8A1.8 1.8 0 0 1 6 17.6V6.8A1.6 1.6 0 0 1 7.6 5.2z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                <path d="M9 9.2h5.4M9 12.3h5.4M9 15.4h3.7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h2>Start a challenge</h2>
+            <p>Pick how many days you want to push yourself. A day counts as a win when you complete all of your habits that day.</p>
+
+            <div class="challenge-card">
+              <h3>How many days?</h3>
+              <div class="challenge-choices" aria-label="Select challenge length">
+                <button class="day-pill" type="button" data-days="7">7<span>DAYS</span></button>
+                <button class="day-pill" type="button" data-days="14">14<span>DAYS</span></button>
+                <button class="day-pill" type="button" data-days="21">21<span>DAYS</span></button>
+                <button class="day-pill selected" type="button" data-days="30">30<span>DAYS</span></button>
+                <button class="day-pill" type="button" data-days="66">66<span>DAYS</span></button>
+                <button class="day-pill" type="button" data-days="100">100<span>DAYS</span></button>
+              </div>
+
+              <div class="custom-days-row">
+                <label class="custom-input-wrap">
+                  <span>Or enter your own</span>
+                  <input id="custom-days" type="number" min="1" max="365" placeholder="e.g. 45" />
+                </label>
+                <span class="range-note">days (1-365)</span>
+              </div>
+            </div>
+
+            <div class="challenge-banner">
+              <div class="banner-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M8 5.8h8.5A1.5 1.5 0 0 1 18 7.3v9.7A1.8 1.8 0 0 1 16.2 18H8.8A1.8 1.8 0 0 1 7 16.2V7.3A1.5 1.5 0 0 1 8.5 5.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                  <path d="M9.6 9h4.8M9.6 12h5.1M9.6 15h3.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="banner-copy">
+                <h4>30-day challenge</h4>
+                <p>Complete all 2 habits each day</p>
+              </div>
+              <button class="primary-btn start-challenge-btn" type="button" data-action="start-challenge">Start challenge</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="view challenge-active-view" aria-label="Active challenge view">
+          <div class="challenge-summary-card">
+            <div class="summary-brand-wrap">
+              <div class="challenge-summary-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 5.5h9.8A1.7 1.7 0 0 1 18.5 7.2v10.6A2 2 0 0 1 16.5 19H7.5A1.5 1.5 0 0 1 6 17.5V7A1.5 1.5 0 0 1 7.5 5.5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                  <path d="M9.4 8.5h5.2M9.4 12h5.2M9.4 15.5h3.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="summary-copy">
+                <h2>30-Day Challenge</h2>
+                <p>Oct 2 — Oct 31</p>
+              </div>
+            </div>
+            <div class="summary-right">
+              <div class="challenge-percent">0%</div>
+              <p>complete</p>
+            </div>
+          </div>
+
+          <div class="progress-bar large-bar">
+            <span></span>
+          </div>
+
+          <div class="metric-grid">
+            <div class="metric-box">
+              <div class="metric-icon checkmate">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7.3 12.3l2.2 2.2 6.6-6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <rect x="4" y="4" width="16" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="1.8" />
+                </svg>
+              </div>
+              <div class="metric-value">0</div>
+              <div class="metric-label">DAYS WON</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-icon warm">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 18.5c3.7 0 6.5-3 6.5-6.5S15.7 5.5 12 5.5 5.5 8.5 5.5 12 8.3 18.5 12 18.5Zm0-2.1V13m0-6.5v2.1m4 4.1h-2.1M12 9.5H9.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="metric-value">0</div>
+              <div class="metric-label">CURRENT RUN</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-icon warm">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 7.7v5.8l4 2.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                </svg>
+              </div>
+              <div class="metric-value">29</div>
+              <div class="metric-label">DAYS LEFT</div>
+            </div>
+          </div>
+
+          <div class="challenge-foot-banner">
+            <div class="foot-banner-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 5.8h8.5A1.5 1.5 0 0 1 17 7.3v9.7A1.8 1.8 0 0 1 15.2 18H7.8A1.8 1.8 0 0 1 6 16.2V7.3A1.5 1.5 0 0 1 7.5 5.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                <path d="M9.6 9h4.8M9.6 12h5.1M9.6 15h3.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="foot-banner-copy">
+              <h4>Today's habits</h4>
+              <p>Head back to the list to check off what you've done.</p>
+            </div>
+            <button class="primary-btn go-today-btn" type="button" data-action="go-today">Go to today <span>→</span></button>
+          </div>
+
+          <button class="end-challenge-btn" type="button" data-action="end-challenge">End challenge</button>
+        </section>
+
+        <section class="view challenge-grid-view" aria-label="Challenge grid">
+          <div class="challenge-grid-shell">
+            <div class="challenge-grid-top">
+              <div>
+                <h2>Challenge grid</h2>
+                <p>Tap a box to tick a habit, and jot a note for the day.</p>
+              </div>
+              <div class="grid-actions">
+                <button class="legend-toggle" type="button" data-grid-filter="done" aria-pressed="false">
+                  <span class="legend-swatch done" aria-hidden="true"></span> Done
+                </button>
+                <button class="legend-toggle" type="button" data-grid-filter="todo" aria-pressed="false">
+                  <span class="legend-swatch todo" aria-hidden="true"></span> To do
+                </button>
+                <button class="primary-btn add-grid-habit-btn" type="button" data-action="add-habit">+ Add habit</button>
+              </div>
+            </div>
+
+            <div class="grid-table">
+              <div class="grid-header">
+                <div class="col-day">DAY</div>
+                <div class="habit-col">
+                  <div class="habit-col-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.3 12.3l2.2 2.2 6.6-6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><rect x="4" y="4" width="16" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="1.8" /></svg>
+                  </div>
+                  <span>kjb</span>
+                </div>
+                <div class="habit-col">
+                  <div class="habit-col-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.3 12.3l2.2 2.2 6.6-6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><rect x="4" y="4" width="16" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="1.8" /></svg>
+                  </div>
+                  <span>ezrg</span>
+                </div>
+                <div class="col-note">NOTE</div>
+              </div>
+
+              <div class="grid-row highlight-row">
+                <div class="day-cell">
+                  <div class="day-name">Day 1</div>
+                  <div class="day-date">Fri · Oct 2</div>
+                </div>
+                <div class="cell-box checked"><span></span></div>
+                <div class="cell-box checked"><span></span></div>
+                <input class="note-input" type="text" value="Add a note..." />
+              </div>
+
+              <div class="grid-row">
+                <div class="day-cell">
+                  <div class="day-name">Day 2</div>
+                  <div class="day-date">Sat · Oct 3</div>
+                </div>
+                <div class="cell-box"></div>
+                <div class="cell-box"></div>
+                <input class="note-input" type="text" placeholder="Add a note..." />
+              </div>
+
+              <div class="grid-row">
+                <div class="day-cell">
+                  <div class="day-name">Day 3</div>
+                  <div class="day-date">Sun · Oct 4</div>
+                </div>
+                <div class="cell-box"></div>
+                <div class="cell-box"></div>
+                <input class="note-input" type="text" placeholder="Add a note..." />
+              </div>
+
+              <div class="grid-row">
+                <div class="day-cell">
+                  <div class="day-name">Day 4</div>
+                  <div class="day-date">Mon · Oct 5</div>
+                </div>
+                <div class="cell-box"></div>
+                <div class="cell-box"></div>
+                <input class="note-input" type="text" placeholder="Add a note..." />
+              </div>
+
+              <div class="grid-row">
+                <div class="day-cell">
+                  <div class="day-name">Day 5</div>
+                  <div class="day-date">Tue · Oct 6</div>
+                </div>
+                <div class="cell-box"></div>
+                <div class="cell-box"></div>
+                <input class="note-input" type="text" placeholder="Add a note..." />
+              </div>
+
+              <div class="grid-row">
+                <div class="day-cell">
+                  <div class="day-name">Day 6</div>
+                  <div class="day-date">Wed · Oct 7</div>
+                </div>
+                <div class="cell-box"></div>
+                <div class="cell-box"></div>
+                <input class="note-input" type="text" placeholder="Add a note..." />
+              </div>
+
+              <div class="grid-row">
+                <div class="day-cell">
+                  <div class="day-name">Day 7</div>
+                  <div class="day-date">Thu · Oct 8</div>
+                </div>
+                <div class="cell-box"></div>
+                <div class="cell-box"></div>
+                <input class="note-input" type="text" placeholder="Add a note..." />
+              </div>
+
+              <div class="grid-row">
+                <div class="day-cell">
+                  <div class="day-name">Day 8</div>
+                  <div class="day-date">Fri · Oct 9</div>
+                </div>
+                <div class="cell-box"></div>
+                <div class="cell-box"></div>
+                <input class="note-input" type="text" placeholder="Add a note..." />
+              </div>
+
+              <div class="grid-row">
+                <div class="day-cell">
+                  <div class="day-name">Day 29</div>
+                  <div class="day-date">Fri · Oct 30</div>
+                </div>
+                <div class="cell-box"></div>
+                <div class="cell-box"></div>
+                <input class="note-input" type="text" placeholder="Add a note..." />
+              </div>
+
+              <div class="grid-row">
+                <div class="day-cell">
+                  <div class="day-name">Day 30</div>
+                  <div class="day-date">Sat · Oct 31</div>
+                </div>
+                <div class="cell-box"></div>
+                <div class="cell-box"></div>
+                <input class="note-input" type="text" placeholder="Add a note..." />
+              </div>
+            </div>
+
+            <div class="challenge-complete-copy">
+              Finish every habit in a row to win the day — then leave a note.
+            </div>
+
+            <div class="challenge-finished-box">
+              <div class="finisher-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7.3 12.3l2.2 2.2 6.6-6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <rect x="4" y="4" width="16" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="1.8" />
+                </svg>
+              </div>
+              <div class="finisher-copy">
+                <h3>Today's habits</h3>
+                <p>Head back to the list to check off what you've done.</p>
+              </div>
+              <button class="primary-btn" type="button" data-action="go-today">Go to today <span>→</span></button>
+            </div>
+
+            <button class="end-challenge-btn" type="button" data-action="end-challenge">End challenge</button>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <div class="footer-brand">
+            <div class="footer-mark">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7.2 12.3l2.7 2.9 6.8-8.3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                <rect x="4" y="4" width="16" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="1.6" />
+              </svg>
+            </div>
+            <span>Ritual</span>
+          </div>
+          <p>Small steps, every day. Your habits stay on this device.</p>
+        </div>
+      </footer>
+    </div>
+
+    <div class="modal-overlay hidden" id="habit-modal" aria-hidden="true">
+      <div class="habit-modal" role="dialog" aria-modal="true" aria-labelledby="habit-modal-title">
+        <div class="modal-header">
+          <h2 id="habit-modal-title">New habit</h2>
+          <button class="modal-close" type="button" aria-label="Close dialog" data-action="close-modal">×</button>
+        </div>
+
+        <p class="modal-subtitle">Name a small routine worth repeating.</p>
+
+        <form id="habit-form">
+          <div class="field-group">
+            <label for="habit-name">Habit name</label>
+            <input id="habit-name" name="habitName" type="text" placeholder="e.g. Morning walk" />
+          </div>
+
+          <div class="field-group">
+            <label>Icon</label>
+            <div class="icon-grid" id="icon-grid">
+              <button class="icon-option selected" type="button" data-icon="check" aria-label="Check icon"><span>✓</span></button>
+              <button class="icon-option" type="button" data-icon="sun" aria-label="Sun icon"><span>☀</span></button>
+              <button class="icon-option" type="button" data-icon="walk" aria-label="Walk icon"><span>🚶</span></button>
+              <button class="icon-option" type="button" data-icon="book" aria-label="Book icon"><span>📖</span></button>
+              <button class="icon-option" type="button" data-icon="spark" aria-label="Spark icon"><span>✦</span></button>
+              <button class="icon-option" type="button" data-icon="heart" aria-label="Heart icon"><span>♡</span></button>
+              <button class="icon-option" type="button" data-icon="drop" aria-label="Drop icon"><span>❀</span></button>
+              <button class="icon-option" type="button" data-icon="flower" aria-label="Flower icon"><span>✿</span></button>
+              <button class="icon-option" type="button" data-icon="moon" aria-label="Moon icon"><span>☾</span></button>
+              <button class="icon-option" type="button" data-icon="plant" aria-label="Plant icon"><span>❋</span></button>
+              <button class="icon-option" type="button" data-icon="coffee" aria-label="Coffee icon"><span>☕</span></button>
+              <button class="icon-option" type="button" data-icon="music" aria-label="Music icon"><span>♫</span></button>
+              <button class="icon-option" type="button" data-icon="fire" aria-label="Fire icon"><span>✹</span></button>
+              <button class="icon-option" type="button" data-icon="stars" aria-label="Stars icon"><span>✦</span></button>
+              <button class="icon-option" type="button" data-icon="timer" aria-label="Timer icon"><span>◔</span></button>
+              <button class="icon-option" type="button" data-icon="target" aria-label="Target icon"><span>◎</span></button>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label>Color</label>
+            <div class="color-row">
+              <button class="color-option selected" type="button" data-color="#e39a73" aria-label="Peach color" style="background:#e39a73"></button>
+              <button class="color-option" type="button" data-color="#d9b77d" aria-label="Gold color" style="background:#d9b77d"></button>
+              <button class="color-option" type="button" data-color="#c2b8b0" aria-label="Grey color" style="background:#c2b8b0"></button>
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <button class="secondary-btn" type="button" data-action="close-modal">Cancel</button>
+            <button class="primary-btn add-modal-btn" type="submit">Add habit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
